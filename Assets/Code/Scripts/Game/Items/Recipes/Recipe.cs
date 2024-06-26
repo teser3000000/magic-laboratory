@@ -1,33 +1,35 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using static UnityEditor.Progress;
 
 public class Recipe
 {
-    public List<Item> Ingredients { get; private set; }
+    public List<IIngredient> Ingredients { get; private set; }
     public string Result { get; private set; }
 
-    public Recipe(List<Item> ingredients, string result)
+    public Recipe(List<IIngredient> ingredients, string result)
     {
         Ingredients = ingredients;
         Result = result;
     }
 
-    public bool Matches(List<Item> items)
+    public bool Matches(List<IIngredient> ingredients)
     {
-        if (items.Count != Ingredients.Count)
+        if (ingredients.Count != Ingredients.Count)
             return false;
 
-        var itemsSorted = new List<Item>(items);
-        var ingredientsSorted = new List<Item>(Ingredients);
+        var itemsSorted = ingredients.Select(i => i.Type).ToList();
+        var ingredientsSorted = Ingredients.Select(i => i.Type).ToList();
 
-        /*itemsSorted.Sort((a, b) => a.Type.CompareTo(b.Type));
-        ingredientsSorted.Sort((a, b) => a.Type.CompareTo(b.Type));
+        itemsSorted.Sort();
+        ingredientsSorted.Sort();
 
         for (int i = 0; i < itemsSorted.Count; i++)
         {
-            if (itemsSorted[i].Type != ingredientsSorted[i].Type || itemsSorted[i].Color != ingredientsSorted[i].Color)
+            if (itemsSorted[i] != ingredientsSorted[i])
                 return false;
-        }*/
+        }
 
         return true;
     }

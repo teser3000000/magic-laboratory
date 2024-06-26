@@ -30,19 +30,21 @@ public class RecipeFactory
     }
 
     // Метод инициализации рецептов
+    // Добавьте другие рецепты здесь
     private void InitializeRecipes()
     {
-        /*_recipeManager.RegisterRecipe(new Recipe(
-            new List<Item>
+        _recipeManager.RegisterRecipe(new Recipe(
+            new List<IIngredient>
             {
-                new Item { Type = ItemType.Flower, Color = Color.Blue },
-                new Item { Type = ItemType.Flower, Color = Color.Blue },
-                new Item { Type = ItemType.Potion }
+                new Potion (PotionType.Red ),
+                new Metal (MetalType.Gold)
+                /*new Item { Type = ItemType.Flower, Color = Color.Blue },
+                new Item { Type = ItemType.Potion }*/
             },
             "Crystal"));
 
-        _recipeManager.RegisterRecipe(new Recipe(
-            new List<Item>
+        /*_recipeManager.RegisterRecipe(new Recipe(
+            new List<IIngredient>
             {
                 new Item { Type = ItemType.Mushroom },
                 new Item { Type = ItemType.Flower },
@@ -50,6 +52,5 @@ public class RecipeFactory
             },
             "Magic Wand"));*/
 
-        // Добавьте другие рецепты здесь
     }
 }

@@ -11,7 +11,7 @@ public class MixingContext
         _recipeManager = recipeManager;
     }
 
-    public void Mix(List<Item> items)
+    public void Mix(List<IIngredient> items)
     {
         string result = _recipeManager.FindRecipe(items);
         if (result != null)

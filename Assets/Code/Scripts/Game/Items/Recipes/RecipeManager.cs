@@ -10,11 +10,11 @@ public class RecipeManager
         _recipes.Add(recipe);
     }
 
-    public string FindRecipe(List<Item> items)
+    public string FindRecipe(List<IIngredient> ingredient)
     {
         foreach (var recipe in _recipes)
         {
-            if (recipe.Matches(items))
+            if (recipe.Matches(ingredient))
             {
                 return recipe.Result;
             }
