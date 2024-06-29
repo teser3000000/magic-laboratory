@@ -15,14 +15,14 @@ public class InteractionZone : MonoBehaviour, IInteroperable
     {
         _cameraMovement = cameraMovement;
     }
-
-    public Action OnInteracted { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
     public bool TryInteract()
     {
         Activate();
         return true;
     }
+
+    public Action OnInteracted { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
 
     public void Activate()
     {

@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class Recipe
 {
     public List<IIngredient> Ingredients { get; private set; }
-    public string Result { get; private set; }
+    public GameObject Result { get; private set; } //bylo string
 
-    public Recipe(List<IIngredient> ingredients, string result)
+    public Recipe(List<IIngredient> ingredients, GameObject result)
     {
         Ingredients = ingredients;
         Result = result;

@@ -2,14 +2,14 @@
 {
     Properties
     {
-        _Color ("Color", Color) = (1,1,1,1)
-        _Metallic ("Metallic", Range(0,1)) = 0
-        _Smoothness ("Smoothness", Range(0,1)) = 0.3
-        _SurfaceLevel ("Liquid Surface Level", Vector) = (0,1,0,0)
-        _GravityDirection ("Gravity direction", Vector) = (0,-1,0,0)
+        _Color("Color", Color) = (1,1,1,1)
+        _Metallic("Metallic", Range(0,1)) = 0
+        _Smoothness("Smoothness", Range(0,1)) = 0.3
+        _SurfaceLevel("Liquid Surface Level", Vector) = (0,1,0,0)
+        _GravityDirection("Gravity direction", Vector) = (0,-1,0,0)
     }
 
-    SubShader
+        SubShader
     {
         Tags { "Queue" = "Transparent+1" "RenderType" = "Cutout" }
 
@@ -87,5 +87,5 @@ fixed4 frag(v2f i) : SV_Target
         }
     }
 
-FallBack"Diffuse"
+        FallBack"Diffuse"
 }

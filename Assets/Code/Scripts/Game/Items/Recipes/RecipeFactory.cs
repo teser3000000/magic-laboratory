@@ -1,26 +1,17 @@
 using System.Collections.Generic;
+using UnityEngine;
+using Zenject;
 
-public class RecipeFactory
+public class RecipeFactory 
 {
-    private static RecipeFactory _instance;
     private RecipeManager _recipeManager;
+    private RecipeResults _recipeResults;
 
-    private RecipeFactory()
+    [Inject] private void Construct(RecipeResults recipeResults, RecipeManager recipeManager)
     {
-        _recipeManager = new RecipeManager();
+        _recipeManager = recipeManager;
+        _recipeResults = recipeResults;
         InitializeRecipes();
-    }
-
-    public static RecipeFactory Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = new RecipeFactory();
-            }
-            return _instance;
-        }
     }
 
     public RecipeManager RecipeManager
@@ -29,19 +20,20 @@ public class RecipeFactory
     }
 
     // Метод инициализации рецептов
-    // Добавьте другие рецепты здесь
+
     private void InitializeRecipes()
     {
         _recipeManager.RegisterRecipe(new Recipe(
             new List<IIngredient>
             {
                 new Potion (PotionType.Red ),
+                new Metal (MetalType.Gold),
                 new Metal (MetalType.Gold)
                 /*new Item { Type = ItemType.Flower, Color = Color.Blue },
                 new Item { Type = ItemType.Potion }*/
             },
-            "Crystal"));
-
+            _recipeResults.Crystal));
+         
         /*_recipeManager.RegisterRecipe(new Recipe(
             new List<IIngredient>
             {

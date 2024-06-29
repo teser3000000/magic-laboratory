@@ -5,4 +5,6 @@ using UnityEngine;
 public interface IIngredient
 {
     object Type { get; }
+
+    public void TryInteract();
 }

@@ -1,28 +1,62 @@
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
+using Zenject;
 
 public class TestMixing : MonoBehaviour
 {
-    private RecipeManager _recipeManager;
+    [SerializeField] private List<IIngredient> selectedIngredients = new List<IIngredient>();
+
+    /*private RecipeFactory _recipeFactory;
+    private RecipeManager _recipeManager;*/
     private MixingContext _mixingContext;
+
+    private ReactiveProperty<int> _numberOfIngredients = new ReactiveProperty<int>();
+
+    private CompositeDisposable _disposables = new CompositeDisposable();
+
+    [Inject] private void Construct(/*RecipeFactory recipeFactory, RecipeManager recipeManager,*/ MixingContext mixingContext)
+    {
+       /* _recipeFactory = recipeFactory;
+        _recipeManager = recipeManager;*/
+        _mixingContext = mixingContext;
+    }
 
     private void Awake()
     {
-        _recipeManager = RecipeFactory.Instance.RecipeManager;
-        _mixingContext = new MixingContext(_recipeManager);
+       // _recipeManager = _recipeFactory.RecipeManager;
+        //_recipeManager = _recipeFactory.RecipeManager;
+
     }
 
     private void Start()
     {
-        List<IIngredient> selectedIngredient = new List<IIngredient>
+        _numberOfIngredients.Where(value => value >= 3).Subscribe(_ =>
         {
-            new Potion (PotionType.Red ),
-            new Metal (MetalType.Gold),
-        };
+            MixingIngredients();
+        }).AddTo(_disposables);
+    }
 
-        // Выполнение смешивания
-        _mixingContext.Mix(selectedIngredient);
+    public void AddIngredientToPot(IIngredient ingredient)
+    {
+        if (ingredient == null) return;
+                selectedIngredients.Add(ingredient);
+
+/*        foreach (var selectedIngredient in selectedIngredients)
+        {
+            Debug.Log(selectedIngredient.Type);
+        }
+*/
+        _numberOfIngredients.Value++;
+    }
+
+    private void MixingIngredients()
+    {
+        _mixingContext.Mix(selectedIngredients);
+
+        _numberOfIngredients.Value = 0;
+        selectedIngredients.Clear();
     }
 
 }

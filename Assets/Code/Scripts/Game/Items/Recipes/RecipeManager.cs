@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class RecipeManager
 {
@@ -9,7 +10,7 @@ public class RecipeManager
         _recipes.Add(recipe);
     }
 
-    public string FindRecipe(List<IIngredient> ingredient)
+    public GameObject FindRecipe(List<IIngredient> ingredient)
     {
         foreach (var recipe in _recipes)
         {
