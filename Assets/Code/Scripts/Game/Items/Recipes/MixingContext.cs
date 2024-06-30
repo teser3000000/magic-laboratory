@@ -6,10 +6,14 @@ using Zenject;
 public class MixingContext : MonoBehaviour
 {
     private RecipeManager _recipeManager;
+    private CameraMovement _cameraMovement;
+    private TriggerAnimationCreate _triggerAnimationCreate;
 
-    [Inject] private void Construct(RecipeManager recipeManager)
+    [Inject] private void Construct(RecipeManager recipeManager, CameraMovement cameraMovement, TriggerAnimationCreate triggerAnimationCreate)
     {
         _recipeManager = recipeManager;
+        _cameraMovement = cameraMovement;
+        _triggerAnimationCreate = triggerAnimationCreate;
     }
 
     public void Mix(List<IIngredient> items)
@@ -27,7 +31,17 @@ public class MixingContext : MonoBehaviour
 
     private IEnumerator CreateResultWithDelay(GameObject result, float delay)
     {
-        yield return new WaitForSeconds(delay); // Ожидаем задержку
-        Instantiate(result, new Vector3(0.613f, 0, -9.177f), Quaternion.identity); // Создаём префаб
+        yield return new WaitForSeconds(delay);
+        AnimationBeforeCreation();
+        _triggerAnimationCreate.appearanceCinematicStripesCommand.Execute();
+        yield return new WaitForSeconds(2.3f);
+        Instantiate(result, new Vector3(0.613f, 0, -9.177f), Quaternion.identity);
     }
+
+    private void AnimationBeforeCreation()
+    {
+        _cameraMovement.SelectCamera(3);
+    }
+
+
 }

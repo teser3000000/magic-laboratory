@@ -15,16 +15,12 @@ public class InteractionZone : MonoBehaviour, IInteroperable
     {
         _cameraMovement = cameraMovement;
     }
-    public bool TryInteract()
+    public void TryInteract()
     {
         Activate();
-        return true;
     }
 
-    public Action OnInteracted { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-
-    public void Activate()
+    private void Activate()
     {
         _cameraMovement.SelectCamera(cameraNumber);
     }

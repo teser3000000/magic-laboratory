@@ -11,23 +11,16 @@ public class TestMixing : MonoBehaviour
     /*private RecipeFactory _recipeFactory;
     private RecipeManager _recipeManager;*/
     private MixingContext _mixingContext;
+   
 
     private ReactiveProperty<int> _numberOfIngredients = new ReactiveProperty<int>();
 
     private CompositeDisposable _disposables = new CompositeDisposable();
 
-    [Inject] private void Construct(/*RecipeFactory recipeFactory, RecipeManager recipeManager,*/ MixingContext mixingContext)
+    [Inject] private void Construct( MixingContext mixingContext)
     {
-       /* _recipeFactory = recipeFactory;
-        _recipeManager = recipeManager;*/
         _mixingContext = mixingContext;
-    }
-
-    private void Awake()
-    {
-       // _recipeManager = _recipeFactory.RecipeManager;
-        //_recipeManager = _recipeFactory.RecipeManager;
-
+        
     }
 
     private void Start()
@@ -54,7 +47,11 @@ public class TestMixing : MonoBehaviour
     private void MixingIngredients()
     {
         _mixingContext.Mix(selectedIngredients);
+        ZeroingArray();
+    }
 
+    private void ZeroingArray()
+    {
         _numberOfIngredients.Value = 0;
         selectedIngredients.Clear();
     }

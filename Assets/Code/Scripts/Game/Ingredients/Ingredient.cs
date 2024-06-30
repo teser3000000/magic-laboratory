@@ -9,15 +9,17 @@ public enum MushroomType { Blue }
 public enum FlowerType { Daisy }
 
 
-public abstract class Ingredient<T> : MonoBehaviour, IIngredient, IAnimatable
+public abstract class Ingredient<T> : MonoBehaviour, IIngredient, IAnimatable, IInteroperable
 {
     [SerializeField] private T type;
     private Animation _anim;
+    private CameraMovement _cameraMovement;
     protected TestMixing _testMixing;
 
-    [Inject] private void Construct(TestMixing testMixing)
+    [Inject] private void Construct(TestMixing testMixing, CameraMovement cameraMovement)
     {
         _testMixing = testMixing;
+        _cameraMovement = cameraMovement;
     }
 
     public T Type
@@ -41,10 +43,15 @@ public abstract class Ingredient<T> : MonoBehaviour, IIngredient, IAnimatable
         _anim.Play();
     }
 
-    public virtual void TryInteract()
+    public void TryInteract()
     {
         PlayAnimation();
         DropIntoCauldron();
+    }
+
+    protected void ReturnToTheInitialCamera()
+    {
+        _cameraMovement.SelectCamera(0);
     }
 
     protected virtual void DropIntoCauldron() { }

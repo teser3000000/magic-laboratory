@@ -10,6 +10,8 @@ public class Potion : Ingredient<PotionType>
     {
         IIngredient newIngredient = gameObject.GetComponent<Potion>();
         _testMixing.AddIngredientToPot(newIngredient);
+
+        ReturnToTheInitialCamera();
     }
 
 }

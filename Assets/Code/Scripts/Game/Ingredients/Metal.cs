@@ -11,5 +11,7 @@ public class Metal : Ingredient<MetalType>
     {
         IIngredient newIngredient = gameObject.GetComponent<Metal>();
         _testMixing.AddIngredientToPot(newIngredient);
+
+        ReturnToTheInitialCamera();
     }
 }

@@ -13,5 +13,6 @@ public class SceneInstaller : MonoInstaller
         Container.Bind<RecipeManager>().AsSingle().NonLazy();
         Container.Bind<TestMixing>().FromComponentInHierarchy().AsSingle();
         Container.Bind<RecipeResults>().FromComponentInHierarchy().AsSingle();
+        Container.Bind<TriggerAnimationCreate>().FromComponentInHierarchy().AsSingle();
     }
 }

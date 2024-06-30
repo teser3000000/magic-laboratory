@@ -6,10 +6,5 @@ using UnityEngine;
 
 public interface IInteroperable
 {
-    //public bool IsInteracted { get; }
-
-    public Action OnInteracted { get; set; }
-
-    public bool TryInteract();
-
+    public void TryInteract();
 }
