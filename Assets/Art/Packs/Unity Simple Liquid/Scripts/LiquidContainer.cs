@@ -235,7 +235,7 @@ namespace UnitySimpleLiquid
             {
                 gravityDirection = value;
                 if (MaterialInstance)
-                    MaterialInstance.SetVector(GravityDirectionID, value);
+                    MaterialInstance.SetVector(GravityDirectionID, value * -1);
             }
         }
 

@@ -7,13 +7,13 @@ public class MixingContext : MonoBehaviour
 {
     private RecipeManager _recipeManager;
     private CameraMovement _cameraMovement;
-    private TriggerAnimationCreate _triggerAnimationCreate;
+    private TriggerAnimationStrips _triggerAnimationStrips;
 
-    [Inject] private void Construct(RecipeManager recipeManager, CameraMovement cameraMovement, TriggerAnimationCreate triggerAnimationCreate)
+    [Inject] private void Construct(RecipeManager recipeManager, CameraMovement cameraMovement, TriggerAnimationStrips triggerAnimationCreate)
     {
         _recipeManager = recipeManager;
         _cameraMovement = cameraMovement;
-        _triggerAnimationCreate = triggerAnimationCreate;
+        _triggerAnimationStrips = triggerAnimationCreate;
     }
 
     public void Mix(List<IIngredient> items)
@@ -32,15 +32,19 @@ public class MixingContext : MonoBehaviour
     private IEnumerator CreateResultWithDelay(GameObject result, float delay)
     {
         yield return new WaitForSeconds(delay);
-        AnimationBeforeCreation();
-        _triggerAnimationCreate.appearanceCinematicStripesCommand.Execute();
+
+        AnimationBeforeCreation(3);
+        _triggerAnimationStrips.appearanceCinematicStripesCommand.Execute();
+        Instantiate(result, new Vector3(0.714f, 0.325f, -9.318f), Quaternion.identity);
+
         yield return new WaitForSeconds(2.3f);
-        Instantiate(result, new Vector3(0.613f, 0, -9.177f), Quaternion.identity);
+        _triggerAnimationStrips.refundCinematicStripesCommand.Execute();
+
     }
 
-    private void AnimationBeforeCreation()
+    private void AnimationBeforeCreation(int number)
     {
-        _cameraMovement.SelectCamera(3);
+        _cameraMovement.SelectCamera(number);
     }
 
 

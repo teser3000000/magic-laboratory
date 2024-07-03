@@ -26,7 +26,7 @@ public class RecipeFactory
         _recipeManager.RegisterRecipe(new Recipe(
             new List<IIngredient>
             {
-                new Potion (PotionType.Red ),
+                new Potion (PotionType.Red),
                 new Metal (MetalType.Gold),
                 new Metal (MetalType.Gold)
                 /*new Item { Type = ItemType.Flower, Color = Color.Blue },
