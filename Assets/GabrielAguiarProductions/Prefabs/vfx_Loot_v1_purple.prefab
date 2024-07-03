@@ -29476,6 +29476,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3238686050191573878}
   - component: {fileID: 1947127336}
+  - component: {fileID: 9046782409202355510}
   m_Layer: 0
   m_Name: vfx_Loot_v1_purple
   m_TagString: Untagged
@@ -29517,6 +29518,26 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &9046782409202355510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3238686050191573881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d580cd5f38dc8764f92433b9768c7e92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleRenderer: {fileID: 9108383230447134346}
+  beamLarge: {fileID: 7153004094525544113}
+  beamSmall: {fileID: 299195339864051131}
+  beamVerticalLarge: {fileID: 6677208846980050480}
+  beamParticles: {fileID: 2339519705081510548}
+  startValue: 1
+  endValue: 0
+  duration: 3
 --- !u!1 &4633564834793389286
 GameObject:
   m_ObjectHideFlags: 0
@@ -58940,8 +58961,8 @@ Transform:
   m_GameObject: {fileID: 8547291821860108785}
   serializedVersion: 2
   m_LocalRotation: {x: 0.39320016, y: -0.58770204, z: -0.587702, w: -0.39320025}
-  m_LocalPosition: {x: -0.19, y: 1.54, z: 0.35}
-  m_LocalScale: {x: 0.80304, y: 0.80304, z: 0.80304}
+  m_LocalPosition: {x: 0, y: 1.15, z: -0}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3238686050191573878}
@@ -58953,7 +58974,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8547291821860108785}
-  m_Mesh: {fileID: -5109971375443077576, guid: f0eb551c81a112f4ba2678fa58b43d67, type: 3}
+  m_Mesh: {fileID: -8417325291713272599, guid: 17b13cee9f95476408ee936f4b48ac16, type: 3}
 --- !u!23 &8785759117385641503
 MeshRenderer:
   m_ObjectHideFlags: 0

@@ -39,7 +39,6 @@ public class MixingContext : MonoBehaviour
 
         yield return new WaitForSeconds(2.3f);
         _triggerAnimationStrips.refundCinematicStripesCommand.Execute();
-
     }
 
     private void AnimationBeforeCreation(int number)

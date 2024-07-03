@@ -27,7 +27,8 @@ public class LootBox : MonoBehaviour
 
         OpenAnimation();
 
-        gameObject.GetComponent<Material>().SetFloat("Vector1_9CE267C1", 0);
+       //
+       //gameObject.GetComponent<Material>().SetFloat("Vector1_9CE267C1", 0);
     }
 
     void Update()

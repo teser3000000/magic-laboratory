@@ -1,3 +1,4 @@
+using Cinemachine;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,6 +40,14 @@ public class CameraMovement : MonoBehaviour
             if(CameraIsApproximate(number)) isApproximate.Value = true;
             else isApproximate.Value = false;
         }
+    }
+
+    private void TurnOffCameraShaking()
+    {
+        var noise = cameraPoints[3].GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+
+        noise.m_AmplitudeGain = 0;
+        //cameraPoints[3].
     }
 
     private bool CameraIsApproximate(int number)
