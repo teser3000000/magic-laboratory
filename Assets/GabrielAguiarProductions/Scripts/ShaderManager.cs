@@ -7,12 +7,10 @@ public class ShaderManager : MonoBehaviour
     [SerializeField] private ParticleSystemRenderer beamLarge;
     [SerializeField] private ParticleSystemRenderer beamSmall;
     [SerializeField] private ParticleSystemRenderer beamVerticalLarge;
-    [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
     [SerializeField] private ParticleSystemRenderer beamParticles;
 
     private ParticleSystem.LightsModule _lightsModule;
-    private CinemachineBasicMultiChannelPerlin _cinemachineBasicMultiChannelPerlin;
 
     private Color _colorBeamLarge;
     private Color _colorBeamSmall;
@@ -30,7 +28,6 @@ public class ShaderManager : MonoBehaviour
         _colorBeamSmall = beamSmall.material.color;
         _colorBeamParticles = beamParticles.material.color;
         _lightsModule = beamLarge.GetComponent<ParticleSystem>().lights;
-        _cinemachineBasicMultiChannelPerlin = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
     }
 
@@ -43,9 +40,8 @@ public class ShaderManager : MonoBehaviour
             //Debug.Log(newValue);
             particleRenderer.material.SetFloat("Vector1_9CE267C1", newValue);
             beamVerticalLarge.material.SetFloat("Vector1_9CE267C1", newValue);
-            _lightsModule.rangeMultiplier = newValue;
 
-            _cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = newValue;
+            _lightsModule.rangeMultiplier = newValue;
 
             _colorBeamLarge.a = newValue;
             _colorBeamSmall.a = newValue;
@@ -56,6 +52,8 @@ public class ShaderManager : MonoBehaviour
             beamParticles.material.color = _colorBeamParticles;
         }
     }
+
+    
 }
 
 

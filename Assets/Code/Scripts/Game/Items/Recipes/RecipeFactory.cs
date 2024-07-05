@@ -29,19 +29,17 @@ public class RecipeFactory
                 new Potion (PotionType.Red),
                 new Metal (MetalType.Gold),
                 new Metal (MetalType.Gold)
-                /*new Item { Type = ItemType.Flower, Color = Color.Blue },
-                new Item { Type = ItemType.Potion }*/
             },
             _recipeResults.Crystal));
-         
-        /*_recipeManager.RegisterRecipe(new Recipe(
+
+        _recipeManager.RegisterRecipe(new Recipe(
             new List<IIngredient>
             {
-                new Item { Type = ItemType.Mushroom },
-                new Item { Type = ItemType.Flower },
-                new Item { Type = ItemType.Potion }
+                new Potion (PotionType.Red),
+                new Seeds (SeedType.Watermelon),
+                new Seeds (SeedType.Sunflower)
             },
-            "Magic Wand"));*/
+            _recipeResults.MagicWand));
 
     }
 }

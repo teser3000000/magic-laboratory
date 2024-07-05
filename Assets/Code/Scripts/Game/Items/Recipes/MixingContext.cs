@@ -9,11 +9,12 @@ public class MixingContext : MonoBehaviour
     private CameraMovement _cameraMovement;
     private TriggerAnimationStrips _triggerAnimationStrips;
 
-    [Inject] private void Construct(RecipeManager recipeManager, CameraMovement cameraMovement, TriggerAnimationStrips triggerAnimationCreate)
+    [Inject]
+    private void Construct(RecipeManager recipeManager, CameraMovement cameraMovement, TriggerAnimationStrips triggerAnimationCreate)
     {
-        _recipeManager = recipeManager;
-        _cameraMovement = cameraMovement;
-        _triggerAnimationStrips = triggerAnimationCreate;
+        _recipeManager = recipeManager ?? throw new System.ArgumentNullException(nameof(recipeManager));
+        _cameraMovement = cameraMovement ?? throw new System.ArgumentNullException(nameof(cameraMovement));
+        _triggerAnimationStrips = triggerAnimationCreate ?? throw new System.ArgumentNullException(nameof(triggerAnimationCreate));
     }
 
     public void Mix(List<IIngredient> items)
@@ -25,7 +26,7 @@ public class MixingContext : MonoBehaviour
         }
         else
         {
-            Debug.Log("No matching recipe found.");
+            Debug.LogWarning("No matching recipe found.");
         }
     }
 
@@ -33,7 +34,7 @@ public class MixingContext : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        AnimationBeforeCreation(3);
+        SelectCameraForAnimation(3);
         _triggerAnimationStrips.appearanceCinematicStripesCommand.Execute();
         Instantiate(result, new Vector3(0.714f, 0.325f, -9.318f), Quaternion.identity);
 
@@ -41,10 +42,8 @@ public class MixingContext : MonoBehaviour
         _triggerAnimationStrips.refundCinematicStripesCommand.Execute();
     }
 
-    private void AnimationBeforeCreation(int number)
+    private void SelectCameraForAnimation(int cameraIndex)
     {
-        _cameraMovement.SelectCamera(number);
+        _cameraMovement.SelectCamera(cameraIndex);
     }
-
-
 }

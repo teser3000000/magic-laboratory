@@ -1,5 +1,5 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using Zenject;
 
 public enum PotionType { Red, Green, Purple }
@@ -12,14 +12,20 @@ public enum FlowerType { Daisy }
 public abstract class Ingredient<T> : MonoBehaviour, IIngredient, IAnimatable, IInteroperable
 {
     [SerializeField] private T type;
-    private Animation _anim;
     private CameraMovement _cameraMovement;
+    protected Animation _anim;
     protected TestMixing _testMixing;
 
-    [Inject] private void Construct(TestMixing testMixing, CameraMovement cameraMovement)
+    [Inject]
+    private void Construct(TestMixing testMixing, CameraMovement cameraMovement)
     {
         _testMixing = testMixing;
         _cameraMovement = cameraMovement;
+    }
+
+    private void Awake()
+    {
+        _anim = gameObject.GetComponent<Animation>();
     }
 
     public T Type
@@ -33,12 +39,8 @@ public abstract class Ingredient<T> : MonoBehaviour, IIngredient, IAnimatable, I
     {
         Type = initialType;
     }
-    private void Awake()
-    {
-        _anim = gameObject.GetComponent<Animation>();
-    }
 
-    public void PlayAnimation()
+    public virtual void PlayAnimation()
     {
         _anim.Play();
     }

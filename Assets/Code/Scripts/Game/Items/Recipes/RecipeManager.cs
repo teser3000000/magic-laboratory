@@ -1,9 +1,12 @@
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 
 public class RecipeManager
 {
     private List<Recipe> _recipes = new List<Recipe>();
+
+    public ReactiveProperty<GameObject> LastCreatedRecipe { get; private set; } = new ReactiveProperty<GameObject>();
 
     public void RegisterRecipe(Recipe recipe)
     {
@@ -16,6 +19,7 @@ public class RecipeManager
         {
             if (recipe.Matches(ingredient))
             {
+                LastCreatedRecipe.Value = recipe.Result;
                 return recipe.Result;
             }
         }

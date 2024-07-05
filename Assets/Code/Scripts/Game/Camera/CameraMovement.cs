@@ -37,17 +37,22 @@ public class CameraMovement : MonoBehaviour
             if (i == number) cameraPoints[i].SetActive(true);
             else cameraPoints[i].SetActive(false);
 
+            if (number == 3) StartCoroutine(TurnOffCameraShaking());
+
             if(CameraIsApproximate(number)) isApproximate.Value = true;
             else isApproximate.Value = false;
         }
     }
-
-    private void TurnOffCameraShaking()
+        
+    private IEnumerator TurnOffCameraShaking()
     {
+        yield return new WaitForSeconds(2.3f);
         var noise = cameraPoints[3].GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-
         noise.m_AmplitudeGain = 0;
-        //cameraPoints[3].
+        yield return new WaitForSeconds(3.3f);
+        SelectCamera(0);
+        yield return new WaitForSeconds(3f);
+        noise.m_AmplitudeGain = 0.48f;
     }
 
     private bool CameraIsApproximate(int number)
