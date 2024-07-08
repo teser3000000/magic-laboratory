@@ -189,6 +189,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  iconIngredient:
+    value: {fileID: 0}
 --- !u!65 &8396142648485815091
 BoxCollider:
   m_ObjectHideFlags: 0

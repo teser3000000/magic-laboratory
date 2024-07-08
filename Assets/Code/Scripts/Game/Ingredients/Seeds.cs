@@ -25,5 +25,4 @@ public class Seeds : Ingredient<SeedType>
         }
     }
 
-
 }

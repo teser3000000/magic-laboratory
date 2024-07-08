@@ -35,6 +35,7 @@ public class MixingContext : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         SelectCameraForAnimation(3);
+
         _triggerAnimationStrips.appearanceCinematicStripesCommand.Execute();
         Instantiate(result, new Vector3(0.714f, 0.325f, -9.318f), Quaternion.identity);
 

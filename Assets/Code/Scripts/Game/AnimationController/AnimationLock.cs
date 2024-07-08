@@ -16,9 +16,15 @@ public static class AnimationLock
         isAnimationPlaying = state;
     }
 
-    public static IEnumerator AnimationCompleted(float delay)
+   /* public static IEnumerator AnimationCompleted(float delay)
     {
         yield return new WaitForSeconds(delay);
+        SetAnimationState(false);
+    }*/
+    
+    public static void AnimationCompleted()
+    {
+
         SetAnimationState(false);
     }
 }

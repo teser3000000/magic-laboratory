@@ -1,6 +1,9 @@
-using System.Collections;
+using DG.Tweening;
+using UniRx;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
+
 
 public enum PotionType { Red, Green, Purple }
 public enum MetalType { Gold, RedMetal }
@@ -12,20 +15,28 @@ public enum FlowerType { Daisy }
 public abstract class Ingredient<T> : MonoBehaviour, IIngredient, IAnimatable, IInteroperable
 {
     [SerializeField] private T type;
+    [SerializeField] private ReactiveProperty<Image> iconIngredient = new ReactiveProperty<Image>();
+
     private CameraMovement _cameraMovement;
+    private RecipeUIManagement _recipeUIManagement;
+
     protected Animation _anim;
     protected TestMixing _testMixing;
 
+    private bool onInteract;
+
     [Inject]
-    private void Construct(TestMixing testMixing, CameraMovement cameraMovement)
+    private void Construct(TestMixing testMixing, CameraMovement cameraMovement, RecipeUIManagement recipeUIManagement)
     {
         _testMixing = testMixing;
         _cameraMovement = cameraMovement;
+        _recipeUIManagement = recipeUIManagement;
     }
 
-    private void Awake()
+    public bool OnInteract
     {
-        _anim = gameObject.GetComponent<Animation>();
+        get { return onInteract; }
+        private set { onInteract = value; }
     }
 
     public T Type
@@ -33,6 +44,7 @@ public abstract class Ingredient<T> : MonoBehaviour, IIngredient, IAnimatable, I
         get { return type; }
         private set { type = value; }
     }
+
     object IIngredient.Type => Type.ToString();
 
     protected Ingredient(T initialType)
@@ -40,15 +52,37 @@ public abstract class Ingredient<T> : MonoBehaviour, IIngredient, IAnimatable, I
         Type = initialType;
     }
 
+    private void Awake()
+    {
+        _anim = gameObject.GetComponent<Animation>();
+    }
+
     public virtual void PlayAnimation()
     {
-        _anim.Play();
+        if (!AnimationLock.IsAnimationPlaying)
+        {
+            _anim.Play();
+            AnimationLock.SetAnimationState(true);
+        }
     }
 
     public void TryInteract()
     {
+        if (onInteract || AnimationLock.IsAnimationPlaying) return;
+        onInteract = true;
+
         PlayAnimation();
         DropIntoCauldron();
+
+        if (iconIngredient != null) EnablingTheIcon();
+    }
+
+    protected void EnablingTheIcon()
+    {
+        iconIngredient.Value.DOFade(1f, 1f).OnComplete(() =>
+        {
+            _recipeUIManagement.StartingMovement();
+        });
     }
 
     protected void ReturnToTheInitialCamera()
@@ -57,4 +91,9 @@ public abstract class Ingredient<T> : MonoBehaviour, IIngredient, IAnimatable, I
     }
 
     protected virtual void DropIntoCauldron() { }
+
+    private void AnimationCompleted()
+    {
+        AnimationLock.AnimationCompleted();
+    }
 }

@@ -15,5 +15,6 @@ public class SceneInstaller : MonoInstaller
         Container.Bind<RecipeResults>().FromComponentInHierarchy().AsSingle();
         Container.Bind<TriggerAnimationStrips>().FromComponentInHierarchy().AsSingle();
         Container.Bind<GameCompletionTracker>().FromComponentInHierarchy().AsSingle();
+        Container.Bind<RecipeUIManagement>().FromComponentInHierarchy().AsSingle();
     }
 }

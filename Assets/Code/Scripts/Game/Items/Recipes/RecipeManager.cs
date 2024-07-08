@@ -22,6 +22,10 @@ public class RecipeManager
                 LastCreatedRecipe.Value = recipe.Result;
                 return recipe.Result;
             }
+            else
+            {
+                Debug.Log("POp");
+            }
         }
         return null;
     }

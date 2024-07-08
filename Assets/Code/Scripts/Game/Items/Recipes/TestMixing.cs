@@ -20,7 +20,6 @@ public class TestMixing : MonoBehaviour
     [Inject] private void Construct( MixingContext mixingContext)
     {
         _mixingContext = mixingContext;
-        
     }
 
     private void Start()
@@ -36,11 +35,6 @@ public class TestMixing : MonoBehaviour
         if (ingredient == null) return;
                 selectedIngredients.Add(ingredient);
 
-/*        foreach (var selectedIngredient in selectedIngredients)
-        {
-            Debug.Log(selectedIngredient.Type);
-        }
-*/
         _numberOfIngredients.Value++;
     }
 
