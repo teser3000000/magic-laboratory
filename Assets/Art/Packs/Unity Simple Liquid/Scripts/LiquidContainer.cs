@@ -103,7 +103,6 @@ namespace UnitySimpleLiquid
             {
                 var newValuePercent = value / volume;
                 fillAmountPercent = Mathf.Clamp01(newValuePercent);
-                Debug.Log("Zak");
             }
         }
 

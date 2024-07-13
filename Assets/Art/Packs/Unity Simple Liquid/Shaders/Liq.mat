@@ -55,7 +55,7 @@ Material:
     - _QueueOffset: 0
     - _Smoothness: 0.423
     m_Colors:
-    - _Color: {r: 0, g: 1, b: 0.09377909, a: 1}
+    - _Color: {r: 0, g: 0.111365795, b: 1, a: 1}
     - _GravityDirection: {r: 0, g: 1, b: 0, a: 0}
     - _SurfaceLevel: {r: 1.726, g: -0.58, b: -11.062, a: 0}
   m_BuildTextureStacks: []

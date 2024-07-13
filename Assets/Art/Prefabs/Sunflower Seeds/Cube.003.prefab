@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1322221714035606523}
   - component: {fileID: 1502496913761643796}
   - component: {fileID: 6750878755282606432}
+  - component: {fileID: -4886701398687566099}
   m_Layer: 0
   m_Name: Cube.003
   m_TagString: Untagged
@@ -103,7 +104,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
@@ -130,8 +131,20 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &-4886701398687566099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636805094796433361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8f2fbbcd13b9914b841a9f120921612, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

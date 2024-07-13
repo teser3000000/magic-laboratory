@@ -49,7 +49,6 @@ public class GameCompletionTracker : MonoBehaviour
             .Subscribe(_ =>
             {
                 TimeLeft.Value -= 1;
-                Debug.Log(TimeLeft.Value);
                 if (TimeLeft.Value <= 0)
                 {
                     OnGameFailed?.Invoke();
@@ -71,7 +70,8 @@ public class GameCompletionTracker : MonoBehaviour
         if (_requiredItems.IsSubsetOf(_createdItems))
         {
             OnGameCompleted?.Invoke();
-            Debug.Log("Game Completed! All required items have been created.");
+            //Debug.Log("Game Completed! All required items have been created.");
+           Debug.Log("Game!");
             _gameTimerDisposable?.Dispose();
         }
     }

@@ -176,8 +176,7 @@ MonoBehaviour:
   bottleneckRadius: 0.045
   splitSpeed: 40
   maxEdgeDrops: 4
-  particlesPrefab: {fileID: 5157395080114985353, guid: 6cbd7c4436dcf4a709ab46f353a9d3c3,
-    type: 3}
+  particlesPrefab: {fileID: 5157395080114985353, guid: 6cbd7c4436dcf4a709ab46f353a9d3c3, type: 3}
   mixingSpeed: 1
 --- !u!1 &5222405182016459952
 GameObject:
