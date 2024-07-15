@@ -5,7 +5,7 @@ public class RecipeResults : MonoBehaviour
 {
     [SerializeField] private GameObject crystal; 
     [SerializeField] private GameObject magicWand; 
-    [SerializeField] private GameObject statue; 
+    [SerializeField] private GameObject statue;  
 
     public GameObject Crystal
     {

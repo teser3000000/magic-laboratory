@@ -1,12 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using TMPro;
 using UniRx;
+using UnityEngine;
 using Zenject;
-using System;
 
 public class GameCompletionTracker : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI timerText;
+
+    private TriggerAnimationStrips _triggerAnimationStrips;
+    private CameraMovement _cameraMovement;
+
     private HashSet<GameObject> _createdItems;
     private HashSet<GameObject> _requiredItems;
     private IDisposable _gameTimerDisposable;
@@ -19,10 +25,13 @@ public class GameCompletionTracker : MonoBehaviour
     public event System.Action OnGameFailed;
 
     [Inject]
-    public void Construct(RecipeManager recipeManager, RecipeResults recipeResults)
+    public void Construct(RecipeManager recipeManager, RecipeResults recipeResults, TriggerAnimationStrips triggerAnimationStrips, CameraMovement cameraMovement)
     {
         _createdItems = new HashSet<GameObject>();
         _requiredItems = new HashSet<GameObject> { recipeResults.Crystal, recipeResults.MagicWand };
+        _triggerAnimationStrips = triggerAnimationStrips;
+        _cameraMovement = cameraMovement;
+
         Initialize(recipeManager);
     }
 
@@ -37,11 +46,13 @@ public class GameCompletionTracker : MonoBehaviour
             })
             .AddTo(this);
 
-        StartGameTimer();
+        // StartGameTimer();
     }
 
-    private void StartGameTimer()
+    public void StartGameTimer()
     {
+        timerText.transform.parent.gameObject.SetActive(true);
+
         TimeLeft = new ReactiveProperty<float>(gameTimerDuration);
 
         _gameTimerDisposable = Observable.Interval(System.TimeSpan.FromSeconds(1))
@@ -49,6 +60,7 @@ public class GameCompletionTracker : MonoBehaviour
             .Subscribe(_ =>
             {
                 TimeLeft.Value -= 1;
+                timerText.text = TimeLeft.Value.ToString();
                 if (TimeLeft.Value <= 0)
                 {
                     OnGameFailed?.Invoke();
@@ -71,9 +83,17 @@ public class GameCompletionTracker : MonoBehaviour
         {
             OnGameCompleted?.Invoke();
             //Debug.Log("Game Completed! All required items have been created.");
-           Debug.Log("Game!");
+            Debug.Log("Game!");
+            StartCoroutine(ComletionGame(12f));
             _gameTimerDisposable?.Dispose();
         }
+    }
+
+    private IEnumerator ComletionGame(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        _triggerAnimationStrips.appearanceCinematicStripesCommand.Execute();
+        _cameraMovement.SelectCamera(4);
     }
 
     private void OnDestroy()

@@ -34,7 +34,7 @@ public class TestMixing : MonoBehaviour
     {
         if (ingredient == null) return;
                 selectedIngredients.Add(ingredient);
-
+        
         _numberOfIngredients.Value++;
     }
 

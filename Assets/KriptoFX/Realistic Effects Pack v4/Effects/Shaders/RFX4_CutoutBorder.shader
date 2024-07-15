@@ -1,16 +1,18 @@
 Shader "KriptoFX/RFX4/CutoutBorder"{
 	Properties
-	{
-		_Color("Color", Color) = (1,1,1,1)
-		_MainTex("Albedo (RGB)", 2D) = "white" {}
-	[HDR]_EmissionColor("Emission Color", Color) = (1,1,1,1)
-		_EmissionTex("Emission (A)", 2D) = "black" {}
-		_Cutoff("_Cutoff", Range(0,1)) = 0
-		//_Cutout2 ("Cutout2", Range(0,1)) = 0
-		[HDR]_BorderColor("Border Color", Color) = (1,1,1,1)
-		_CutoutThickness("Cutout Thickness", Range(0,1)) = 0.03
-	}
-	SubShader
+    {
+        _Color("Color", Color) = (1,1,1,1)
+        _MainTex("Albedo (RGB)", 2D) = "white" {}
+        [HDR]_EmissionColor("Emission Color", Color) = (1,1,1,1)
+        _EmissionTex("Emission (A)", 2D) = "black" {}
+        _Cutoff("Cutoff", Range(0,1)) = 0.5
+        _BorderColor("Border Color", Color) = (1,1,1,1)
+        _CutoutThickness("Cutout Thickness", Range(0,1)) = 0.03
+        _MetallicMap("Metallic Map", 2D) = "white" {}
+        _Smoothness("Smoothness", Range(0, 1)) = 0.5
+        _NormalMap("Normal Map", 2D) = "bump" {}
+    }
+		SubShader
 		{
 			Tags { "RenderType" = "Opaque" "Queue" = "AlphaTest-1"}
 			LOD 100
@@ -167,5 +169,5 @@ Shader "KriptoFX/RFX4/CutoutBorder"{
 				ENDCG
 			}
 		}
-	//Fallback "Transparent/Cutout/Diffuse"
+			//Fallback "Transparent/Cutout/Diffuse"
 }

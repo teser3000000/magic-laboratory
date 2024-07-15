@@ -7,6 +7,8 @@ public class PersonaController : MonoBehaviour
     [SerializeField] private GameObject smallBottle;
     [SerializeField] private GameObject seeds;
     [SerializeField] private GameObject seeds2;
+    [SerializeField] private GameObject mouse;
+    [SerializeField] private GameObject discription;
 
     private void OpenBottle()
     {
@@ -52,5 +54,15 @@ public class PersonaController : MonoBehaviour
                 collider.enabled = true;
 
         }
+    }
+
+    public void ActiveMouse()
+    {
+        mouse.gameObject.SetActive(true);
+    }
+
+    public void ActiveDiscription()
+    {
+        discription.gameObject.SetActive(true);
     }
 }

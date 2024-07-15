@@ -5,6 +5,8 @@ using Zenject;
 
 public class MixingContext : MonoBehaviour
 {
+    [SerializeField] private GameObject nullResultObject;
+
     private RecipeManager _recipeManager;
     private CameraMovement _cameraMovement;
     private TriggerAnimationStrips _triggerAnimationStrips;
@@ -26,7 +28,10 @@ public class MixingContext : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No matching recipe found.");
+            foreach (var item in items)
+                StartCoroutine(item.ResetOriginalState());
+            
+            StartCoroutine(CreateResultWithDelay(nullResultObject, 4f));
         }
     }
 
@@ -34,7 +39,7 @@ public class MixingContext : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        SelectCameraForAnimation(3);
+        _cameraMovement.SelectCamera(3);
 
         _triggerAnimationStrips.appearanceCinematicStripesCommand.Execute();
         Instantiate(result, new Vector3(0.714f, 0.325f, -9.318f), Quaternion.identity);
@@ -43,8 +48,4 @@ public class MixingContext : MonoBehaviour
         _triggerAnimationStrips.refundCinematicStripesCommand.Execute();
     }
 
-    private void SelectCameraForAnimation(int cameraIndex)
-    {
-        _cameraMovement.SelectCamera(cameraIndex);
-    }
 }

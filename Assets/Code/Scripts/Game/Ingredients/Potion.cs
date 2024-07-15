@@ -9,6 +9,7 @@ public class Potion : Ingredient<PotionType>
     protected override void DropIntoCauldron()
     {
         IIngredient newIngredient = gameObject.GetComponent<Potion>();
+ 
         _testMixing.AddIngredientToPot(newIngredient);
 
         ReturnToTheInitialCamera();

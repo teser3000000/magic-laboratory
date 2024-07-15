@@ -8,6 +8,10 @@ public class DiscardIngredient : MonoBehaviour
         {
             other.GetComponentInParent<SeedPool>().ReturnSeedToPool(other.gameObject);
         }
+        else if (other.TryGetComponent(out Metal metal))
+        {
+            other.GetComponent<MetalPool>().ReturnMetalToPool(other.gameObject);
+        }
         else
         {
             Destroy(other.gameObject);

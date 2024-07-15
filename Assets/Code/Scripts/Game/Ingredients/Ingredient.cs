@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +19,6 @@ public abstract class Ingredient<T> : MonoBehaviour, IIngredient, IAnimatable, I
     [SerializeField] private ReactiveProperty<Image> iconIngredient = new ReactiveProperty<Image>();
 
     private CameraMovement _cameraMovement;
-    private RecipeUIManagement _recipeUIManagement;
 
     protected Animation _anim;
     protected TestMixing _testMixing;
@@ -26,11 +26,10 @@ public abstract class Ingredient<T> : MonoBehaviour, IIngredient, IAnimatable, I
     private bool onInteract;
 
     [Inject]
-    private void Construct(TestMixing testMixing, CameraMovement cameraMovement, RecipeUIManagement recipeUIManagement)
+    private void Construct(TestMixing testMixing, CameraMovement cameraMovement)
     {
         _testMixing = testMixing;
         _cameraMovement = cameraMovement;
-        _recipeUIManagement = recipeUIManagement;
     }
 
     public bool OnInteract
@@ -57,15 +56,6 @@ public abstract class Ingredient<T> : MonoBehaviour, IIngredient, IAnimatable, I
         _anim = gameObject.GetComponent<Animation>();
     }
 
-    public virtual void PlayAnimation()
-    {
-        if (!AnimationLock.IsAnimationPlaying)
-        {
-            _anim.Play();
-            AnimationLock.SetAnimationState(true);
-        }
-    }
-
     public void TryInteract()
     {
         if (onInteract || AnimationLock.IsAnimationPlaying) return;
@@ -77,12 +67,30 @@ public abstract class Ingredient<T> : MonoBehaviour, IIngredient, IAnimatable, I
         if (iconIngredient != null) EnablingTheIcon();
     }
 
+
+    public virtual void PlayAnimation()
+    {
+        if (!AnimationLock.IsAnimationPlaying)
+        {
+            _anim.Play();
+            AnimationLock.SetAnimationState(true);
+        }
+    }
+    public virtual IEnumerator ResetOriginalState() { yield return new WaitForSeconds(0); }
+
     protected void EnablingTheIcon()
     {
-        iconIngredient.Value.DOFade(1f, 1f).OnComplete(() =>
-        {
-            _recipeUIManagement.StartingMovement();
-        });
+        iconIngredient.Value.DOFade(1f, 1f);
+    }
+
+    protected void TurningTheIcon()
+    {
+        iconIngredient.Value.DOFade(0.2f, 1f);
+    }
+
+    protected void ResetInteracteble()
+    {
+        onInteract = false;
     }
 
     protected void ReturnToTheInitialCamera()
@@ -96,4 +104,5 @@ public abstract class Ingredient<T> : MonoBehaviour, IIngredient, IAnimatable, I
     {
         AnimationLock.AnimationCompleted();
     }
+
 }
