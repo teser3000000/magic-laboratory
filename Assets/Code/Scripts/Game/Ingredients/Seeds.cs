@@ -6,10 +6,17 @@ public class Seeds : Ingredient<SeedType>
     public Seeds(SeedType type) : base(type) { }
 
     [SerializeField] private Transform seedSpawn;
+    [SerializeField] private GameObject vfxReset;
+
     private SeedPool _seedPool;
+
+    private Material _dissolveMaterial;
 
     private void Start()
     {
+        //_meshRenderer = vfxReset.GetComponent<MeshRenderer>();
+        _dissolveMaterial = vfxReset.GetComponent<MeshRenderer>().material;
+
         _seedPool = GetComponent<SeedPool>();
 
         SpawnSeeds();
@@ -27,6 +34,32 @@ public class Seeds : Ingredient<SeedType>
         ReturnToTheInitialCamera();
     }
 
+    IEnumerator ChangeValue(float start, float end, float duration, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            _dissolveMaterial.SetFloat("Vector1_EFD20677", Mathf.Lerp(start, end, elapsed / duration));
+            yield return null;
+        }
+    }
+
+    public override IEnumerator ResetOriginalState()
+    {
+        yield return new WaitForSeconds(11.5f);
+
+        TurningTheIcon();
+        ResetInteracteble();
+
+        StartCoroutine(ChangeValue(0.21f, -0.02f, 2f, 0f));
+        StartCoroutine(ChangeValue(-0.02f, -0.52f, 1f, 2f));
+
+        SpawnSeeds();
+    }
+
     private void ProcessAllChildren()
     {
         foreach (Transform child in transform)
@@ -34,7 +67,7 @@ public class Seeds : Ingredient<SeedType>
             Rigidbody rb = child.GetComponent<Rigidbody>();
             MeshCollider meshCollider = child.GetComponent<MeshCollider>();
 
-            if (rb != null) 
+            if (rb != null)
             {
                 rb.isKinematic = false;
                 rb.useGravity = true;

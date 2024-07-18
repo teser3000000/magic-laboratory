@@ -9,17 +9,19 @@ using Zenject;
 public class GameCompletionTracker : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private GameObject cutscene1;
+    [SerializeField] private GameObject cutscene2;
 
     private TriggerAnimationStrips _triggerAnimationStrips;
     private CameraMovement _cameraMovement;
 
     private HashSet<GameObject> _createdItems;
     private HashSet<GameObject> _requiredItems;
+
     private IDisposable _gameTimerDisposable;
     public ReactiveProperty<float> TimeLeft { get; private set; }
 
     public float gameTimerDuration = 20; // Длительность таймера в секундах, например 5 минут
-
 
     public event System.Action OnGameCompleted;
     public event System.Action OnGameFailed;
@@ -28,7 +30,7 @@ public class GameCompletionTracker : MonoBehaviour
     public void Construct(RecipeManager recipeManager, RecipeResults recipeResults, TriggerAnimationStrips triggerAnimationStrips, CameraMovement cameraMovement)
     {
         _createdItems = new HashSet<GameObject>();
-        _requiredItems = new HashSet<GameObject> { recipeResults.Crystal, recipeResults.MagicWand };
+        _requiredItems = new HashSet<GameObject> { recipeResults.Crystal, recipeResults.MagicWand, recipeResults.Statue};
         _triggerAnimationStrips = triggerAnimationStrips;
         _cameraMovement = cameraMovement;
 
@@ -46,6 +48,8 @@ public class GameCompletionTracker : MonoBehaviour
             })
             .AddTo(this);
 
+        _triggerAnimationStrips.AppearanceCinematicStripes();
+        cutscene1.SetActive(true);
         // StartGameTimer();
     }
 
@@ -84,7 +88,8 @@ public class GameCompletionTracker : MonoBehaviour
             OnGameCompleted?.Invoke();
             //Debug.Log("Game Completed! All required items have been created.");
             Debug.Log("Game!");
-            StartCoroutine(ComletionGame(12f));
+            _triggerAnimationStrips.RefundTimer(-1032f);
+            StartCoroutine(ComletionGame(11.5f));
             _gameTimerDisposable?.Dispose();
         }
     }
@@ -92,8 +97,8 @@ public class GameCompletionTracker : MonoBehaviour
     private IEnumerator ComletionGame(float delay)
     {
         yield return new WaitForSeconds(delay);
-        _triggerAnimationStrips.appearanceCinematicStripesCommand.Execute();
-        _cameraMovement.SelectCamera(4);
+        cutscene2.SetActive(true);
+        _cameraMovement.SelectCamera(5);
     }
 
     private void OnDestroy()

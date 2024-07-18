@@ -8,7 +8,7 @@ using Zenject;
 
 public enum PotionType { Red, Green, Purple }
 public enum MetalType { Gold, RedMetal }
-public enum SeedType { Watermelon, Sunflower }
+public enum SeedType { Watermelon, Sunflower, Crystal }
 public enum MushroomType { Blue }
 public enum FlowerType { Daisy }
 
@@ -66,7 +66,6 @@ public abstract class Ingredient<T> : MonoBehaviour, IIngredient, IAnimatable, I
 
         if (iconIngredient != null) EnablingTheIcon();
     }
-
 
     public virtual void PlayAnimation()
     {

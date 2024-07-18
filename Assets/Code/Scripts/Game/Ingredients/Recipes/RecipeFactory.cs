@@ -41,5 +41,14 @@ public class RecipeFactory
             },
             _recipeResults.MagicWand));
 
+        _recipeManager.RegisterRecipe(new Recipe(
+            new List<IIngredient>
+            {
+                new Potion (PotionType.Purple),
+                new Seeds (SeedType.Crystal),
+                new Metal (MetalType.RedMetal)
+            },
+            _recipeResults.Statue));
+
     }
 }
